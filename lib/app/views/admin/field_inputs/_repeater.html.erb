@@ -1,0 +1,3 @@
+<%= semantic_fields_for "", builder.object, builder: ActiveadminMagicfields::FormBuilder do |r| %>
+  <% r.sections_has_many :parts, collection: Part.includes(:field_templates).all, part_objects: r.object.part_objects, sortable: :position, form_prefix: form_prefix + builder.object_name.sub('part[', '[') %>
+<% end %>

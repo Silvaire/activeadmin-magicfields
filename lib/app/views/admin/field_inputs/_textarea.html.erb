@@ -1,0 +1,8 @@
+<%= builder.input field_template.field_type, label: field_template.title, required: field_template.is_required, input_html: {name: form_prefix + builder.object_name.sub('part[', '[') + "[#{field_template.field_type}]" } %>
+
+<%# To make the textarea a Wysiwyg field, add to your gemfile
+      gem 'activeadmin-dragonfly', github: 'stefanoverna/activeadmin-dragonfly'
+      gem 'activeadmin-wysihtml5', github: 'silvaire/activeadmin-wysihtml5'
+    and replace the above line by the commented one below 
+%>
+<%#= builder.input field_template.field_type, as: :wysihtml5, label: field_template.title, required: field_template.is_required, input_html: {name: form_prefix + builder.object_name.sub('part[', '[') + "[#{field_template.field_type}]" } %>

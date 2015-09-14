@@ -1,0 +1,11 @@
+<%# Define the Part Object %>
+
+<% part_object = resource.part_objects.build %>
+
+<%# Build the fields %>
+  <%#= semantic_fields_for resource, namespace: 'new_part_form' do |r| %>
+<%= render partial: "admin/part_objects/part_object", locals: {part_object: part_object, part: resource, form_prefix: params[:form_name]} %> 
+  <%# end %>
+
+
+  <a class="button section_has_many_remove" href="#">Remove</a>

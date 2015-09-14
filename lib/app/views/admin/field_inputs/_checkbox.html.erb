@@ -1,0 +1,1 @@
+<%= builder.input field_template.field_type, label: field_template.title, input_html: {name: form_prefix + builder.object_name.sub('part[', '[') + "[#{field_template.field_type}]" } %>

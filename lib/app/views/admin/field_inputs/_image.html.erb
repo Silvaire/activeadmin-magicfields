@@ -1,0 +1,4 @@
+<%= builder.input :image, as: :file, label: field_template.title, required: field_template.is_required, :hint => ( (builder.object.new_record? || builder.object.image_file_name.nil?) ? content_tag(:span, "No previous image") : ("current image:<br/>").html_safe + image_tag(builder.object.image.url(:thumb)) ), input_html: {value: builder.object.image_file_name, name: form_prefix + builder.object_name.sub('part[', '[') + "[#{field_template.field_type}]" } %>
+<% if ( !builder.object.new_record? and !builder.object.image_file_name.nil? and !field_template.is_required ) %>
+  <%= builder.input :delete_image, as: :boolean, label: "Delete Image", input_html: {name: form_prefix + builder.object_name.sub('part[', '[') + "[delete_image]" } %>
+<% end %>

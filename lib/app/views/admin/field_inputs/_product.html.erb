@@ -1,0 +1,1 @@
+<%= builder.input :product_id, as: :select, multiselect: false, collection: Spree::Product.all, label: field_template.title, required: field_template.is_required, input_html: {name: form_prefix + builder.object_name.sub('part[', '[') + "[product_id]" } %>

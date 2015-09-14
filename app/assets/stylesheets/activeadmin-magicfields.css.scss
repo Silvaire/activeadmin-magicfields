@@ -1,0 +1,53 @@
+form .json_container {
+  position: relative;
+}
+
+form .json_container fieldset {
+  position: relative;
+}
+
+fieldset.jsonb {
+  padding: 20px;
+  border: solid 1px #ddd;
+  margin: 15px;
+  background: #f4f4f4;
+  .section-title {
+    display: inline-block;
+  }
+  .destroy-section {
+    display: inline-block;
+    margin-left: 15px;
+  }
+  li.hidden {
+    display: none;
+  }
+}
+
+.section_has_many_add {
+  margin: 20px 15px;
+}
+
+.input.refile img.image-preview {
+  margin: 0.5em 0 0 20%;
+  display: block;
+}
+
+form .jsonb fieldset.inputs {
+  box-shadow: none;
+  -webkit-box-shadow: none;
+}
+
+form .json_container .handle {
+  position: absolute;
+  right: 2px;
+  padding: 0;
+  cursor: move;
+  top: calc(50% - 34px/2);
+
+  span.icon {
+    width: 3em;
+    height: 3em;
+    display: inline-block;
+  }
+}
+  

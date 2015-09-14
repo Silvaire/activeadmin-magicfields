@@ -1,0 +1,53 @@
+<% if !part_object.new_record? or request.xhr?.blank? %>
+  <fieldset class="jsonb">
+<% end %>
+
+
+<%= semantic_fields_for part, namespace: 'part_form' do |r| %>
+  <%= r.semantic_fields_for "part_objects_attributes", part_object, index: (part_object.id || DateTime.now.strftime('%Q')) do |f| %>
+    <h3 class="section-title"><%= part.name %></h3>
+    <%= f.input :position, as: :hidden, input_html: {value: (part_object.position || 9999), name: form_prefix + f.object_name.sub('part[', '[') + "[#{f.index}][position]" } %>
+    <%= f.input :part_id, as: :hidden, input_html: {value: part.id, name: form_prefix + f.object_name.sub('part[', '[') + "[#{f.index}][part_id]" } %>
+    <% if part_object.part_object_fields.blank? %>
+      <% part.field_templates.by_position.each_with_index do |field_template, ix| %>
+        <%= f.semantic_fields_for "part_object_fields_attributes", part_object.part_object_fields.build, index: ix do |part_object_field| %>
+
+          <% field_object = Field.const_get(field_template.field_type.classify).new %>
+          <%= part_object_field.input :fieldable_type, as: :hidden, input_html: {value: "Field::" + field_template.field_type.classify, name: form_prefix + part_object_field.object_name.sub('part[', '[') + "[#{ix}][fieldable_type]"} %>
+          <%= part_object_field.semantic_fields_for  "fieldable_attributes", field_object do |field| %>
+            <%= f.inputs do %>
+              <%= render partial: "admin/field_inputs/#{field_template.field_type}", locals: {builder: field, form_prefix: form_prefix, field_template: field_template} %>
+              <%= field.input :field_template_id, as: :hidden, input_html: {value: field_template.id, name: form_prefix + field.object_name.sub('part[', '[') + "[field_template_id]"} %>
+            <% end %>
+
+          <% end %>
+        <% end %>
+      <% end %>
+    <% else %>
+      <%= f.input :id, as: :hidden, input_html: {value: part_object.id, name: form_prefix + f.object_name.sub('part[', '[') + "[#{f.index}][id]" } %>
+      <%= f.input :_destroy, as: :boolean, input_html: {name: form_prefix + f.object_name.sub('part[', '[') + "[#{f.index}][_destroy]" }, :wrapper_html => { :class => "destroy-section" } %>
+      <% part_object.part_object_fields.each_with_index do |part_object_field, ix| %>
+        <%= f.semantic_fields_for "part_object_fields_attributes", part_object_field, index: ix do |pof| %>
+          <%= pof.input :id, as: :hidden, input_html: {name: form_prefix + pof.object_name.sub('part[', '[') + "[#{ix}][id]", value: pof.object.id } %>
+          <%= pof.input :fieldable_type, as: :hidden, input_html: {name: form_prefix + pof.object_name.sub('part[', '[') + "[#{ix}][fieldable_type]", value: pof.object.fieldable_type } %>
+          <%= pof.semantic_fields_for "fieldable_attributes", part_object_field.fieldable do |fieldable| %>
+            <%= f.inputs do %>
+              <%= fieldable.input :id, as: :hidden, input_html: {name: form_prefix + fieldable.object_name.sub('part[', '[') + "[id]", value: fieldable.object.id } %>
+              <%= render partial: "admin/field_inputs/#{fieldable.object.field_template.field_type}", locals: {builder:fieldable, form_prefix: form_prefix, field_template:fieldable.object.field_template} %>
+              <%= fieldable.input :field_template_id, as: :hidden, input_html: {value: fieldable.object.field_template_id, name: form_prefix + fieldable.object_name.sub('part[', '[') + "[field_template_id]"} %>
+            <% end %>
+          <% end %>
+        <% end %>
+      <% end %>
+    <% end %>
+  <% end %>
+<% end %>
+
+
+<ol>
+  <li class="handle"><span class="icon icon_move_vertical"><svg x="0px" y="0px" width="100%" height="100%" viewBox="0 0 12 32" enable-background="new 0 0 12 32" xml:space="preserve"><g id=""></g><g id="move_x5F_vertical_x5F_12x32"> <g> <polygon fill="#5E6469" points="8,20 8,26 12,26 6,32 0,26 4,26 4,20 "></polygon> <polygon fill="#5E6469" points="4,12 4,6 0,6 6,0 12,6 8,6 8,12 "></polygon> </g></g></svg></span></li>
+</ol>
+
+<% if !part_object.new_record? or request.xhr?.blank?  %>
+  </fieldset>
+<% end %>
