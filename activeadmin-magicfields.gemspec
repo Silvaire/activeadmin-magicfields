@@ -10,9 +10,9 @@ Gem::Specification.new do |s|
   s.version     = ActiveadminMagicfields::VERSION
   s.authors     = ["Silvain Toromanoff"]
   s.email       = ["silvain@agencyleroy.com"]
-  s.description = 'This gem extends formtastic\'s form builder to support custom sections and fields in your forms'
+  s.description = 'This gem extends formtastic\'s form builder to support custom fields and sections for your Active Admin models'
   s.summary     = 'Custom fields and sections for active admin.'
-  s.homepage    = ""
+  s.homepage    = "https://github.com/Silvaire/activeadmin-magicfields"
 
   s.files         = `git ls-files`.split("\n").sort
   s.test_files    = `git ls-files -- {spec,features}/*`.split("\n")
