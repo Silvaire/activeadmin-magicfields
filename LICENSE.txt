@@ -1,4 +1,4 @@
-Copyright 2015 Sergeev Peter
+Copyright 2015 Silvain Toromanoff
 
 Permission is hereby granted, free of charge, to any person obtaining
 a copy of this software and associated documentation files (the
